@@ -26,3 +26,13 @@ app.listen(3000, () => {
 
 app.use("/api/user", userRouter);       //giving path file and calling file
 app.use('/api/auth', authRouter);
+
+app.use((err, req, res, next) => {      //creating middleware -error comming from input of middleware, req- data from client or browser, respond from server to client and next-to go to next middleware
+    const statusCode = err.statusCode || 500;  //statuscode we gonna add is we got from middleware err or if there is no statuscode we use 500
+    const message = err.message || 'Internal Server Error';  //if there is no message we have an alnertative message
+    return res.status(statusCode).json({
+        success: false,
+        statusCode,
+        message,
+    });
+})
