@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 export default function SignUp() {
-  const [formData, setFormData] = useState({});   // creating object and function setformdata, import usestate,ckeep track of all data.
+  const [formData, setFormData] = useState({});   // creating object and function setformdata, import usestate,allowing you to store and update data, keep track of all data.
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ export default function SignUp() {
     e.preventDefault();                //to prevent the refreshing when we submit the form
     try {
       setLoading(true);
-    const res = await fetch('/api/auth/signup',     // req localhost 
+    const res = await fetch('/api/auth/signup',     // get response by fetching in this url
     {
       method: 'POST',       //adding object
       headers:{
@@ -28,12 +28,12 @@ export default function SignUp() {
     });
     const data = await res.json();        //change and convert response we get to JSON so we can use it and see it.
     console.log(data);         // if user is new and enters correct information "user created sucessfully" is dispalyed
-    if (data.success === false){
+    if (data.success === false){   //if there is error
       setLoading(false);
       setError(data.message);
       return;
     }
-    setLoading(false);
+    setLoading(false);        // if there is no loading stop and navigate to the sign-in page
     setError(null);
     navigate('/sign-in');
     } catch(error){
@@ -52,14 +52,15 @@ export default function SignUp() {
 
       <button disabled = {loading} className='bg-orange-600 text-white p-3 rounded-lg uppercase hover:bg-black   opacity-85 disabled:opacity-80'>{loading ? 'Loading...': 'sign Up'}</button>
     </form>
-    <div className="flex gap-2 mt-5">
+    <div className='flex gap-2 mt-5'>
       <p>Do you Have an account?</p>
-      <Link to={"/sign-in"}> 
+      <Link to={'/sign-in'}> 
       <span className='text-blue-700'>Sign in</span>
       </Link>
 
     </div>
     {(error) && <p className='text-orange-600 mt-5'>{error}</p>}
     </div>
-  )
+  );
+  
 }
