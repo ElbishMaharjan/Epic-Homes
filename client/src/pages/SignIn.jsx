@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice';  //importing function
 
-
+// Component for Sign In
 export default function SignIn() {
   const [formData, setFormData] = useState({});   // creating object and function setformdata, import usestate,allowing you to store and update data, keep track of all data.
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const { loading, error } = useSelector((state) => state.user);           // Selecting loading and error state from Redux store
+  const navigate = useNavigate();           // Navigate hook for programmatic navigation
+  const dispatch = useDispatch();           // Dispatch function for Redux actions
+   // Function to handle form input change
   const handleChange = (e) => {            //  event listener call function handlechange, and e-take an event
     setFormData(        
       {
@@ -14,10 +17,10 @@ export default function SignIn() {
         [e.target.id]: e.target.value, //add new changes with the help of id and what ever is change set that value
       });
   };
-  const handleSubmit = async(e) => {       //creating functiom
+  const handleSubmit = async(e) => {      // Function to handle form submission //creating functiom
     e.preventDefault();                //to prevent the refreshing when we submit the form
     try {
-      setLoading(true);
+      dispatch(signInStart());       // Dispatching sign-in start action
     const res = await fetch('/api/auth/signin',     // get response by fetching in this url
     {
       method: 'POST',       //adding object
@@ -29,19 +32,17 @@ export default function SignIn() {
     const data = await res.json();        //change and convert response we get to JSON so we can use it and see it.
     console.log(data);         // if user is new and enters correct information "user created sucessfully" is dispalyed
     if (data.success === false){   //if there is error
-      setLoading(false);
-      setError(data.message);
+      dispatch(signInFailure(data.message)); // Dispatching sign-in failure action
       return;
     }
-    setLoading(false);        // if there is no loading stop and navigate to the sign-in page
-    setError(null);
-    navigate('/');
+    dispatch(signInSuccess(data));        // Dispatching sign-in success action
+    navigate('/');              // Redirecting to home page
     } catch(error){
-      setLoading(false);
-      setError(error.message);
+      dispatch(signInFailure(error.message));       // Dispatching sign-in failure action if an error occurs
     }
   };
-  
+
+  // Rendering the sign-in form
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl text text-center font-semibold my-7'>Sign In</h1>
