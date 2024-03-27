@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector} from 'react-redux'
 
 export default function Header() {
-    const { currentUser} = useSelector(state => state.user)
+    const { currentUser} = useSelector(state => state.user) // Access or initial current user information from Redux store,& because the name of our state is user in userslice.
   return (
     <header className='bg-black shadow-md'>
         <div className='flex justify-between items-center max-w-6xl mx-auto p-4'>
@@ -25,8 +25,8 @@ export default function Header() {
             <Link to='/about'>
                 <li className='hidden sm:inline text-slate-100 hover:underline decoration-orange-700 decoration-2'>About</li>
             </Link>
-            <Link to='/profile'>
-                {currentUser ? (
+            <Link to='/profile'>  {/* Profile link or Sign-in link based on user authentication */}
+                {currentUser ? (  // if the current user exixts,we want to show an image or avatar, otherwise we wanna see the sign in li
                     <img className='rounded-full h-7 w-7 object-cover'  src={currentUser.avatar} alt="profile" />
                 ) : (
                     <li className=' text-slate-100 hover:underline decoration-orange-700 decoration-2'>Sign-in</li>
