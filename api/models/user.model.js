@@ -14,7 +14,11 @@ const userSchema = new mongoose.Schema({ // creation of method
     password: {
         type: String,
         requried: true,
-    }
+    },
+    avatar: {
+        type: String,
+        default: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+    },
 }, { timestamps:true}); //time of creation and update of user in mongodb
 
 const User = mongoose.model('User', userSchema); //Creating user model
