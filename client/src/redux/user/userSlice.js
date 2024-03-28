@@ -57,9 +57,24 @@ const userSlice = createSlice({
             state.error = action.payload;             // Set error message
             state.loading = false;                     // Set loading to false
         },
+        // Reducer for signaling the start of user signout process
+        signOutUserStart: (state) => {
+            state.loading = true;                      // Set loading to true
+        },
+        // Reducer for successful user signout
+        signOutUserSuccess: (state) =>{
+            state.currentUser = null;                 // Clear currentUser
+            state.loading = false;                    // Set loading to false
+            state.error = null;                       // Clear any previous errors
+        },
+        // Reducer for user signout failure
+        signOutUserFailure: (state, action) => {
+            state.error = action.payload;             // Set error message
+            state.loading = false;                     // Set loading to false
+        },
     },
 });
 // Exporting action creators
-export const { signInStart, signInSuccess, signInFailure, updateUserStart, updateUserSuccess, updateUserFailure, deleteUserStart, deleteUserSuccess, deleteUserFailure } = userSlice.actions;
+export const { signInStart, signInSuccess, signInFailure, updateUserStart, updateUserSuccess, updateUserFailure, deleteUserStart, deleteUserSuccess, deleteUserFailure, signOutUserStart, signOutUserSuccess, signOutUserFailure } = userSlice.actions;
 // Exporting the user slice reducer
 export default userSlice.reducer;

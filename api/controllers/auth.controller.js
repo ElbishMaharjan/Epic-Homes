@@ -35,4 +35,15 @@ export const signin = async(req, res, next) =>{           // creating a function
         next(error);   //using middleware from index.js to catch the error
     }
 
-}
+};
+
+// Define an asynchronous function to handle user sign-out
+export const signOut = async (req, res, next) => {
+    try{
+        res.clearCookie('access_token');   // Clear the access_token cookie to sign out the user
+        res.status(200).json('User has been logged out!'); // Send a JSON response with a success message indicating successful sign-out
+
+    } catch (error){
+        next(error);       // If an error occurs, pass it to the error-handling middleware
+    }
+};

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess } from "../redux/user/userSlice";
+import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserStart, signOutUserFailure, signOutUserSuccess } from "../redux/user/userSlice";
 
 
 // Profile component displays user profile information
@@ -60,8 +60,22 @@ const handleDeleteUser = async () => {
   }
 };
 
-
-
+// Define a function to handle the sign-out 
+const handleSignOut = async() => {
+  try{
+    dispatch(signOutUserStart());                   // Dispatch an action to indicate that the sign-out process has started
+    const res = await fetch('/api/auth/signout');   // Send a request to the server to sign out the user
+    const data = await res.json();                  //we want to get data by converting it to using the JSON and then 
+    if (data.success === false){                    // If sign-out was not successful, dispatch an action to handle the failure
+      dispatch(signOutUserFailure(data.message));    // Dispatch action to handle sign-out failure with the error message
+      return;
+    }
+    // If sign-out was successful, dispatch an action to handle the success
+    dispatch(signOutUserSuccess(data));// Dispatch action to handle sign-out success
+   } catch (error){
+    dispatch(signOutUserFailure(error.message)); // If an error occurs during the sign-out process, dispatch an action to handle the failure with the error message
+  }
+};
 
 
 
@@ -84,8 +98,11 @@ const handleDeleteUser = async () => {
 
       <div className="flex justify-between mt-5"> {/* Section for account deletion and sign out */}
         <span onClick={handleDeleteUser}  className="text-red-700 cursor-pointer">Delete account</span> {/* Render a clickable span element to handle the deletion of the user account.When clicked, it triggers the handleDeleteUser function.*/}
-        <span className="text-red-700 cursor-pointer">Sign out</span>
+        
+        <span onClick={handleSignOut}className="text-red-700 cursor-pointer">Sign out</span>{/* Render a clickable span element to handle the sign-out action. When clicked, it triggers the handleSignOut function.*/}
       </div>
+
+
       <p className="text-red-700 mt-5">{error ? error : ''} </p>{/* Conditional rendering of a paragraph element. If 'error' exists, display the error message.Otherwise, render an empty string. */}
       <p className="text-green-700 mt-5"> {updateSuccess ? 'User is updated successfully' : ''}</p> {/* Conditional rendering of a paragraph element.If updateSuccess is true, display the success message.Otherwise, render an empty string. */}
     </div>
