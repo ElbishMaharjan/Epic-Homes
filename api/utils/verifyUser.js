@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";   // Import the jsonwebtoken library
- 
+import { errorHandler } from './error.js';    // Import the errorHandler function from the error.js file
 // Middleware function to verify JWT authentication tokens
 export const verifyToken = (req, res, next) =>{
     const token = req.cookies.access_token;      // Extract the JWT token from the 'access_token' cookie,//to  get any data from cookie we need to install packaged called cookie-parser. 
