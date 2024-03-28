@@ -42,9 +42,24 @@ const userSlice = createSlice({
             state.error = action.payload;
             state.loading = false;
         },
+        // Reducer for signaling the start of user deletion process
+        deleteUserStart: (state) => {
+            state.loading = true;                      // Set loading to true
+        },
+        // Reducer for successful user deletion
+        deleteUserSuccess: (state) =>{
+            state.currentUser = null;                 // Clear currentUser
+            state.loading = false;                    // Set loading to false
+            state.error = null;                       // Clear any previous errors
+        },
+        // Reducer for user deletion failure
+        deleteUserFailure: (state, action) => {
+            state.error = action.payload;             // Set error message
+            state.loading = false;                     // Set loading to false
+        },
     },
 });
 // Exporting action creators
-export const { signInStart, signInSuccess, signInFailure, updateUserStart, updateUserSuccess, updateUserFailure } = userSlice.actions;
+export const { signInStart, signInSuccess, signInFailure, updateUserStart, updateUserSuccess, updateUserFailure, deleteUserStart, deleteUserSuccess, deleteUserFailure } = userSlice.actions;
 // Exporting the user slice reducer
 export default userSlice.reducer;

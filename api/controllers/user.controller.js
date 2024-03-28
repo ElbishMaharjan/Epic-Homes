@@ -11,7 +11,7 @@ export const test = (req, res)=> {
 // Controller function for updating user information
 export const updateUser = async(req, res, next) =>{
      // Check if the authenticated user is updating their own account
-    if(req.user.id !== req.params.id) return next (errorHandler(401, "You can only update your own account!"))
+    if(req.user.id !== req.params.id) return next (errorHandler(401, "You can only update your own account!")) // If the IDs don't match, return an error indicating that the user can only update your own account
     try{
         // Hash the password if provided in the request body
         if(req.body.password){
@@ -34,4 +34,17 @@ export const updateUser = async(req, res, next) =>{
     } catch (error) {
         next(error)   // Forward errors to the error handling middleware
     }
+};
+
+// Export deleteUser function to handle user deletion
+export const deleteUser = async (req, res, next) => {
+    if(req.user.id !== req.params.id)  // Check if the authenticated user ID matches the ID in the request parameters
+    return next(errorHandler(401, 'You can only delete your own account!'))  // If the IDs don't match, return an error indicating that the user can only delete their own account
+    try{
+        await User.findByIdAndDelete(req.params.id) ;     // Attempt to find and delete the user by ID
+        res.clearCookie('access_token');                   // Clear the access_token cookie to log the user out
+        res.status(200).json('User has been deleted!');    // Respond with a success message
+    } catch (error) {
+        next(error)                              // If an error occurs, pass it to the error-handling middleware
 }
+};
