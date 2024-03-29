@@ -97,9 +97,9 @@ const handleSignOut = async() => {
       </form>
 
       <div className="flex justify-between mt-5"> {/* Section for account deletion and sign out */}
-        <span onClick={handleDeleteUser}  className="text-red-700 cursor-pointer">Delete account</span> {/* Render a clickable span element to handle the deletion of the user account.When clicked, it triggers the handleDeleteUser function.*/}
+        <span onClick={handleDeleteUser}  className="text-red-700 cursor-pointer text-1xl font-semibold  ">Delete account</span> {/* Render a clickable span element to handle the deletion of the user account.When clicked, it triggers the handleDeleteUser function.*/}
         
-        <span onClick={handleSignOut}className="text-red-700 cursor-pointer">Sign out</span>{/* Render a clickable span element to handle the sign-out action. When clicked, it triggers the handleSignOut function.*/}
+        <span onClick={handleSignOut}className="text-red-700 cursor-pointer text-1xl font-semibold">Sign out</span>{/* Render a clickable span element to handle the sign-out action. When clicked, it triggers the handleSignOut function.*/}
       </div>
 
 

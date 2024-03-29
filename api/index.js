@@ -3,6 +3,7 @@ import mongoose from 'mongoose';  // Import mongoose for MongoDB interactions
 import dotenv from 'dotenv';      // Import dotenv for environment variables
 import userRouter from './routes/user.route.js';     // Import user routes
 import authRouter from './routes/auth.route.js';     // Import authentication routes
+import listingRouter from './routes/listing.route.js';      // Import the listingRouter module for handling listing-related routes
 import cookieParser from 'cookie-parser'; // Import cookie-parser middleware
 dotenv.config();       // Load environment variables from .env file
 
@@ -30,6 +31,7 @@ app.listen(3000, () => {
 
 app.use("/api/user", userRouter);       //giving path file and calling file // Mount user routes at /api/user
 app.use('/api/auth', authRouter);         // Mount authentication routes at /api/auth
+app.use('/api/listing', listingRouter);    // Attach the listingRouter middleware to handle requests starting with '/api/listing' 
 
 // Error handling middleware
 app.use((err, req, res, next) => {      //creating middleware -error comming from input of middleware, req- data from client or browser, respond from server to client and next-to go to next middleware
