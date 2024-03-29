@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserStart, signOutUserFailure, signOutUserSuccess } from "../redux/user/userSlice";
-
+import { Link } from 'react-router-dom';
 
 // Profile component displays user profile information
 export default function Profile() {
@@ -94,6 +94,9 @@ const handleSignOut = async() => {
         <input type="password" placeholder="password" id="password" className="border p-3 rounded-lg" onChange={handleChange} />{/*add onchange event listener */}
 
         <button  disabled={loading} className="bg-orange-600 text-white rounded-lg p-3 uppercase hover:bg-black  opacity-95 disabled:opacity-80  ">{loading ? 'loading...' : 'Update' }</button> {/* Button for updating user profile, if the loading is true,we want to see loading..., otherwise we want to see updates, and when it is loading... the loading button is disabled */}
+        <Link  className= 'bg-black text-white p-3 rounded-lg uppercase text-center hover:opacity-80'to ={"/create-listing"}>
+          Create Listing
+        </Link>
       </form>
 
       <div className="flex justify-between mt-5"> {/* Section for account deletion and sign out */}
