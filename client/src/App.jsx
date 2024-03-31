@@ -21,7 +21,7 @@ export default function App() {
       <Route path="/about" element={<About />} />
       <Route element={<PrivateRoute />}>    {/* PrivateRoute component is used to protect the Profile page */}
         <Route path="/profile" element={<Profile />} />      {/* Nested route for the Profile page */}
-        <Route path="/create-listing" element={<CreatingListing />} />      {/* Nested route for the Profile page */}
+        <Route path="/create-listing" element={<CreatingListing />} />      {/*  route for the creating a listing  page */}
       </Route>
     </Routes>
     </BrowserRouter>

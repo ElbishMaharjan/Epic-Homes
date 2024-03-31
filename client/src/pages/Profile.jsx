@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserStart, signOutUserFailure, signOutUserSuccess } from "../redux/user/userSlice";
-import { Link } from 'react-router-dom';
+import { useState } from "react";               // Import the useState hook from React for managing state
+import { useDispatch, useSelector } from "react-redux";      // Import the useDispatch and useSelector hooks from React Redux for dispatching actions and accessing the Redux store state 
+import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserStart, signOutUserFailure, signOutUserSuccess } from "../redux/user/userSlice";   // Import action creators from the userSlice for updating user information, deleting user account, and signing out
+import { Link } from 'react-router-dom';    // Import the Link component from React Router for navigation
 
 // Profile component displays user profile information
 export default function Profile() {
@@ -93,16 +93,16 @@ const handleSignOut = async() => {
         <input type="email" placeholder="email" id="email" defaultValue={currentUser.email} className="border p-3 rounded-lg" onChange={handleChange} />  {/* onChange: Event handler function called when the input value changes, invoking the handleChange function */}
         <input type="password" placeholder="password" id="password" className="border p-3 rounded-lg" onChange={handleChange} />{/*add onchange event listener */}
 
-        <button  disabled={loading} className="bg-orange-600 text-white rounded-lg p-3 uppercase hover:bg-black  opacity-95 disabled:opacity-80  ">{loading ? 'loading...' : 'Update' }</button> {/* Button for updating user profile, if the loading is true,we want to see loading..., otherwise we want to see updates, and when it is loading... the loading button is disabled */}
-        <Link  className= 'bg-black text-white p-3 rounded-lg uppercase text-center hover:opacity-80'to ={"/create-listing"}>
+        <button  disabled={loading} className="bg-orange-600 text-white rounded-lg p-3 uppercase hover:bg-black ">{loading ? 'loading...' : 'Update' }</button> {/* Button for updating user profile, if the loading is true,we want to see loading..., otherwise we want to see updates, and when it is loading... the loading button is disabled */}
+        <Link  className= 'bg-black text-white p-3 rounded-lg uppercase text-center hover:opacity-80'to ={"/create-listing"}>           {/* Render a Link component for navigating to the Create Listing page. The 'to' prop specifies the destination route ("/create-listing").*/}
           Create Listing
         </Link>
       </form>
 
       <div className="flex justify-between mt-5"> {/* Section for account deletion and sign out */}
-        <span onClick={handleDeleteUser}  className="text-red-700 cursor-pointer text-1xl font-semibold  ">Delete account</span> {/* Render a clickable span element to handle the deletion of the user account.When clicked, it triggers the handleDeleteUser function.*/}
+        <span onClick={handleDeleteUser}  className=" bg-red-700 text-white p-1 rounded-lg text-center cursor-pointer text-1xl font-semibold hover:opacity-80 ">Delete account</span> {/* Render a clickable span element to handle the deletion of the user account.When clicked, it triggers the handleDeleteUser function.*/}
         
-        <span onClick={handleSignOut}className="text-red-700 cursor-pointer text-1xl font-semibold">Sign out</span>{/* Render a clickable span element to handle the sign-out action. When clicked, it triggers the handleSignOut function.*/}
+        <span onClick={handleSignOut}className=" bg-red-700 text-white p-1 rounded-lg text-center text-red-700 cursor-pointer text-1xl font-semibold hover:opacity-80 ">Sign out</span>{/* Render a clickable span element to handle the sign-out action. When clicked, it triggers the handleSignOut function.*/}
       </div>
 
 
