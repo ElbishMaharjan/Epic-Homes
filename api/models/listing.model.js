@@ -19,7 +19,7 @@ const listingSchema = new mongoose.Schema(  // Define the schema for a listing u
             type: Number,
             required: true,
         },
-        discountedPrice: {
+        discountPrice: {
             type: Number,
             required: true,
         },
