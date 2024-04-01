@@ -1,6 +1,7 @@
 import bcryptjs from 'bcryptjs';
 import User from '../models/user.model.js';
 import { errorHandler } from '../utils/error.js';
+import Listing from '../models/listing.model.js';
 
 // Controller function for testing
 export const test = (req, res)=> {
@@ -47,4 +48,18 @@ export const deleteUser = async (req, res, next) => {
     } catch (error) {
         next(error)                              // If an error occurs, pass it to the error-handling middleware
 }
+};
+
+
+export  const getUserListings = async (req, res, next) => {
+    if(req.user.id  === req.params.id){   // Check if the authenticated user ID matches the requested user ID
+        try {
+            const listings = await Listing.find({ userRef: req.params.id});   // Fetch listings associated with the user ID from the database
+            res.status(200).json(listings);  // Send a JSON response with the listings and a status code of 200
+        }  catch (error) {
+            next(error)   // If an error occurs during database operation, pass it to the error handling middleware
+        }                   
+}else{
+    return next(errorHandler(401, 'you can only view your own listings!'));// If the authenticated user ID does not match the requested user ID, invoke an error handler with status code 401, indicating unauthorized access
+    }
 };
