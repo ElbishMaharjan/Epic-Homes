@@ -8,6 +8,10 @@ export default function Profile() {
   const {currentUser, loading, error } = useSelector((state) => state.user);  // Select relevant state from Redux store
   const [formData, setFormData] = useState({});  // Initialize state for form data 
   const [updateSuccess, setUpdateSuccess] = useState(false);     // Initialize state for update success status
+  const [showListingsError, setShowListingsError] = useState(false);   // Show error message if there is an issue retrieving listings
+  const [userListings, setUserListings]  = useState([]);   // State to store list of user's active listings
+  
+  // Function to handle changes in input fields. Updates formData object with new field values
   const dispatch = useDispatch();                    // Initialize useDispatch hook to dispatch actions
 
 
@@ -78,7 +82,21 @@ const handleSignOut = async() => {
 };
 
 
-
+// Asynchronous function to handle the display of user listings
+const handleShowListings = async ()  => {
+  try {
+    setShowListingsError(false);    // This function first sets 'showListingsError' state to false// Reset error state before fetching listings// clean the previous error
+    const res =await fetch(`/api/user/listings/${currentUser._id}`);  // Fetch user listings from the server using the current user's ID
+    const data= await res.json();     //creating data by converting it into JSON
+    if (data.success === false) {     // If the response indicates failure, set error state and return,// If the request is successful and returns data, it updates the 'userListings' state with the fetched data
+      setShowListingsError(true);
+      return;
+    }
+    setUserListings(data);           // Update userListings state with fetched data
+  } catch (error) {
+    setShowListingsError(true);     // If an error occurs during fetching or processing, set error state,// If the request fails or encounters an error, it sets 'showListingsError' state to true
+  }
+};
 
   // Render the component
   return (
@@ -106,8 +124,30 @@ const handleSignOut = async() => {
       </div>
 
 
-      <p className="text-red-700 mt-5">{error ? error : ''} </p>{/* Conditional rendering of a paragraph element. If 'error' exists, display the error message.Otherwise, render an empty string. */}
-      <p className="text-green-700 mt-5"> {updateSuccess ? 'User is updated successfully' : ''}</p> {/* Conditional rendering of a paragraph element.If updateSuccess is true, display the success message.Otherwise, render an empty string. */}
+      <p className="text-red-700 mt-5">{error ? error : ''} </p>                                            {/* Conditional rendering of a paragraph element. If 'error' exists, display the error message.Otherwise, render an empty string. */}
+      <p className="text-green-700 mt-5"> {updateSuccess ? 'User is updated successfully' : ''}</p>         {/* Conditional rendering of a paragraph element.If updateSuccess is true, display the success message.Otherwise, render an empty string. */}
+
+      <button onClick={handleShowListings} className="bg-orange-600 text-white  p-2 rounded-lg cursor-pointer hover:opacity-80 w-full">Show Listing</button>           {/*Button component to trigger the display of user listings, When clicked, it invokes the 'handleShowListings' function*/}
+      <p className="text-red-700 mt-5" > {showListingsError ? 'Error showing listing' : ''}</p>              {/* The error message 'Error showing listing' is displayed if 'showListingsError' is true, otherwise an empty string is displayed*/}
+
+    {userListings && userListings.length > 0 &&       // Conditional rendering based on whether user listings exist and their length is more than 0 zero thrn we wanna show the listings
+    <div className=" flex flex-col gap-4">
+      <h1 className="text-center my-7 text-2xl font-semibold">Your Listings</h1>
+    {userListings.map((listing) =>(       // Map through each user listing 
+     <div key={listing._id} className="border rounded-lg p-3 flex justify-between items-center gap-4">  {/* Container for each listing with unique key and styling */}
+      <Link to ={`/listing/${listing._id}`}>   {/* Link to listing details page with listing image */}
+      <img src={listing.imageUrls[0]} alt="listing Image" className="h-16 w-18 object-contain" />  {/* Image element displaying the first image of the listing */}
+      </Link>
+      <Link className="text-slate-700 font-semibold flex-1 hover:underline truncate" to={`/listing/${listing._id}`}>   {/* Link to listing details page with listing name */}
+        <p > {listing.name} </p> {/* Paragraph element displaying the listing name */}
+      </Link>
+
+      <div className="flex flex-col items-center">
+      <button className="text-red-700 uppercase">Delete</button>   {/* Button to delete listing */}
+      <button className="text-green-700 uppercase">eDIT</button>    {/* Button to edit listing */}
+      </div>
+    </div>))}
+    </div>}
     </div>
-  )
+  );
 }
