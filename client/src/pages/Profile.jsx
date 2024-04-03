@@ -98,6 +98,27 @@ const handleShowListings = async ()  => {
   }
 };
 
+
+// Asynchronous function to handle the deletion of a listing
+const handleListingDelete = async (listingId)  => {
+  try {
+    const res  = await fetch(`/api/listing/delete/${listingId}`, {           // It sends a DELETE request to the server API endpoint '/api/listing/delete/:listingId' with the listing ID
+      method: 'DELETE',
+      });
+      const data = await  res.json();       // Get the response from  the server and store in variable "data"
+      if (data.success === false) {          // If the response indicates failure, log the error message to the console and return
+        console.log(data.message);
+        return;
+      }
+
+      setUserListings((prev) => prev.filter((listing) => listing._id !== listingId));            // Update the user listings state by filtering out the deleted listing
+    } catch (error){
+      console.log(error.message);    // If the request fails or encounters an error, log the error message to the console
+    }
+  };
+
+
+
   // Render the component
   return (
     <div className="p-3 max-w-lg mx-auto">
@@ -143,7 +164,7 @@ const handleShowListings = async ()  => {
       </Link>
 
       <div className="flex flex-col items-center">
-      <button className="text-red-700 uppercase">Delete</button>   {/* Button to delete listing */}
+      <button onClick={()=> handleListingDelete(listing._id)} className="text-red-700 uppercase">Delete</button>   {/*Button component for deleting a listing// When clicked, it invokes the 'handleListingDelete' function with the listing ID as a parameter */}
       <button className="text-green-700 uppercase">eDIT</button>    {/* Button to edit listing */}
       </div>
     </div>))}
