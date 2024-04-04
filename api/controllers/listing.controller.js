@@ -51,3 +51,17 @@ export const updateListing = async (req, res, next) => {
       next(error);           // If an error occurs during the deletion process, pass it to the error handling middleware
    }
 };
+
+
+// Controller function to handle the retrieval of a listing by ID
+export const getListing = async (req, res, next) => {
+try{
+   const lisiting = await Listing.findById(req.params.id);  // Retrieve the listing from the database based on the provided ID
+   if (!lisiting){  // If the listing does not exist, invoke an error handler with status code 404
+       return next(errorHandler(404, "Listing not found"));
+   }
+   res.status(200).json(lisiting);   // Send the listing data in the response with status code 200  // The listing data is sent as a JSON object in the response body
+}catch(error){
+   next(error);   // If an error occurs during the retrieval process, pass it to the error handling middleware
+}
+};
