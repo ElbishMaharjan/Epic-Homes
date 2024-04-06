@@ -8,6 +8,7 @@ import Header from './components/Header';
 import PrivateRoute from './components/PrivateRoute';
 import CreatingListing from './pages/CreatingListing';
 import UpdateListing from './pages/UpdateListing';
+import Listing from './pages/Listing';
 
 // App component defines the application's routes and structure
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
       <Route path="/sign-in" element={<SignIn />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/about" element={<About />} />
+      <Route path="/listing/:listingId" element={<Listing />} />  {/* Render the Listing component when the path matches "/listing/:listingId",based on this ID we want to fetch data */}
       <Route element={<PrivateRoute />}>    {/* PrivateRoute component is used to protect the Profile page */}
         <Route path="/profile" element={<Profile />} />      {/* Nested route for the Profile page */}
         <Route path="/create-listing" element={<CreatingListing />} />      {/*  route for the creating a listing  page */}
