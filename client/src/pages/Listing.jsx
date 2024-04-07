@@ -2,15 +2,21 @@ import  { useEffect, useState } from 'react';   // Importing useEffect and useSt
 import { useParams } from 'react-router-dom';   // Importing useParams hook from React Router DOM
 import { Swiper,  SwiperSlide } from 'swiper/react';   // Importing Swiper and SwiperSlide components from Swiper React
 import SwiperCore from  'swiper';                  // Importing the main SwiperCore module from Swiper
+import { useSelector } from  'react-redux';         // Using useSelector to get access to Redux store state data
 import { Navigation } from  'swiper/modules';      // Importing the Navigation module from Swiper
 import 'swiper/css/bundle';                       // Importing Swiper CSS bundle
 import { FaBath, FaBed,  FaUtensils, FaTv, FaChair, FaMapMarkerAlt, FaParking, }  from "react-icons/fa";    // Importing FontAwesome icons 
+import Contact from '../components/Contact';
 
 // Define the Listing component
 export default function Listing() {
   SwiperCore.use([Navigation]);                  // Install the Navigation module for the Swiper component
     const [listing, setListing] = useState(null);        // Define a state variable 'listing' and a function 'setListing' to update it
+    const [contact, setContact] = useState(false);       // Create a state variable called contact with initial value to work properly
     const params = useParams();    // Extract the URL parameters using the useParams hook from React Router
+    const {currentUser} = useSelector((state) => state.user);
+
+
 
     // useEffect hook to fetch listing data when 'params.listingId' changes
     useEffect(() => {
@@ -93,6 +99,10 @@ export default function Listing() {
                 {listing.furnished ? 'Furnished' : 'Unfurnished'}    {/*Display a chair icon whether the listing is furnished or unfurnished*/}
            </li>
           </ul>
+          {currentUser && listing.userRef !== currentUser._id && !contact &&(                    // Render a button to contact the landlord if there is a current user,the listing's user reference is not the same as the current user's ID,,and the contact state is false.,// if there is a current user or person is the owner (&&) and if there is listing, and then if the listing that user ref is not equal to the other people than the owner of the listing can see it.so if this one is equal to currentUser._id, and then we want to see the button
+          <button onClick={()=> setContact(true)}  className='bg-orange-700 text-white rounded-lg uppercase hover:bg-black p-3'>Contact landlord</button>    // When clicked, it sets the contact state to true// if setContact is true, dont show this button, or if setContact  is true !contact is going to be false. so we cannot see the button, After clicking on the button it is going to be disappeared
+          )}
+          {contact && <Contact listing={listing}/> }     {/* Render the Contact component if the contact state is true,and passing the listing as a prop.*/}
       </div>
       </div>
     }

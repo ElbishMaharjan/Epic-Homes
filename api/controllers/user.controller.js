@@ -63,3 +63,15 @@ export  const getUserListings = async (req, res, next) => {
     return next(errorHandler(401, 'you can only view your own listings!'));// If the authenticated user ID does not match the requested user ID, invoke an error handler with status code 401, indicating unauthorized access
     }
 };
+
+// Define an asynchronous function 'getUser' to handle fetching user data by ID
+export const getUser = async  (req, res, next) => {
+    try{
+        const user = await User.findById(req.params.id) ;      // Find the user by their ID
+        if(!user) return next(errorHandler(404, 'User not found'));  // If user not found, return 404 error
+        const { password: pass, ...rest } = user._doc;         // Destructure password field from user document,otherwise we want to bring back the user, but we dont want to bring the password. so seperating the password with name pass with the rest which is inside the user._doc
+        res.status(200).json(rest);            // Send the user data in the response       
+    } catch (error) {
+        next(error);        // Forward any errors to the error handling middleware
+    }
+};
