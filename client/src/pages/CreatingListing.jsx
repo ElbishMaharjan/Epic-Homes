@@ -242,7 +242,9 @@ const handleSubmit = async (e) =>{    // Define an asynchronous function to hand
                         />
                         <div className='flex flex-col item-center'>
                         <p>Regular price</p>
+                        {formData.type === 'rent' && (
                         <span className='text-xs'>($ / month)</span>
+                            )}
                         </div>
                     </div>
                     {/* Conditional rendering for Discounted Price input field based on the 'offer' checkbox.If 'offer' is checked (true), display the Discounted Price input field; otherwise, hide it.*/}
@@ -254,7 +256,9 @@ const handleSubmit = async (e) =>{    // Define an asynchronous function to hand
                         />
                         <div className='flex flex-col item-center'>
                         <p>Discounted price</p>
+                        {(formData.type === 'rent' &&
                         <span className='text-xs'>($ / month)</span>
+                        )}
                         </div>
                     </div>
                     )};

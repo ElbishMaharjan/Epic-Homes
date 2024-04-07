@@ -165,7 +165,7 @@ const handleListingDelete = async (listingId)  => {
 
       <div className="flex flex-col items-center">
       <button onClick={()=> handleListingDelete(listing._id)} className="text-red-700 uppercase hover:underline">Delete</button>   {/*Button component for deleting a listing// When clicked, it invokes the 'handleListingDelete' function with the listing ID as a parameter */}
-      <Link to={`update-listing/${listing._id}`}>
+      <Link to={`/update-listing/${listing._id}`}>
       <button  className="text-green-700 uppercase hover:underline">edit</button>    {/* Button to edit listing */}
       </Link>
       </div>
