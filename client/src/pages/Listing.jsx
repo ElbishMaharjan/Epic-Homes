@@ -7,6 +7,7 @@ import { Navigation } from  'swiper/modules';      // Importing the Navigation m
 import 'swiper/css/bundle';                       // Importing Swiper CSS bundle
 import { FaBath, FaBed,  FaUtensils, FaTv, FaChair, FaMapMarkerAlt, FaParking, }  from "react-icons/fa";    // Importing FontAwesome icons 
 import Contact from '../components/Contact';
+import SimpleMarkerMap from  "../components/SimpleMarkerMap";
 
 // Define the Listing component
 export default function Listing() {
@@ -100,10 +101,11 @@ export default function Listing() {
            </li>
           </ul>
           {currentUser && listing.userRef !== currentUser._id && !contact &&(                    // Render a button to contact the landlord if there is a current user,the listing's user reference is not the same as the current user's ID,,and the contact state is false.,// if there is a current user or person is the owner (&&) and if there is listing, and then if the listing that user ref is not equal to the other people than the owner of the listing can see it.so if this one is equal to currentUser._id, and then we want to see the button
-          <button onClick={()=> setContact(true)}  className='bg-orange-700 text-white rounded-lg uppercase hover:bg-black p-3'>Contact landlord</button>    // When clicked, it sets the contact state to true// if setContact is true, dont show this button, or if setContact  is true !contact is going to be false. so we cannot see the button, After clicking on the button it is going to be disappeared
+          <button onClick={()=> setContact(true)}  className='bg-orange-700 text-white rounded-lg uppercase hover:bg-black transition duration-300 p-3'>Contact landlord</button>    // When clicked, it sets the contact state to true// if setContact is true, dont show this button, or if setContact  is true !contact is going to be false. so we cannot see the button, After clicking on the button it is going to be disappeared
           )}
           {contact && <Contact listing={listing}/> }     {/* Render the Contact component if the contact state is true,and passing the listing as a prop.*/}
       </div>
+      <SimpleMarkerMap/>
       </div>
     }
     </main>

@@ -40,9 +40,11 @@ return (
             </p>
             <textarea name='message' id='message' rows='2' value={message} onChange={onChange} placeholder='Enter your message here...' className='w-full border p-3 rounded-lg' ></textarea>  {/* Textarea for entering the message */}
 
-            <Link to={`mailto:${landlord.email}?subject=Regarding ${listing.name}&body=${message}`} className='bg-orange-700 text-white text-center p-3 uppercase rounded-lg hover:bg-black'>    {/* Create a link to compose an email with the landlord's email address pre-filled as the recipient,the subject including the listing name, and the body including the message.,mailto is going to activate your mail system in the windows,send the email of the landlord, the subject of the emailand body with message*/}
+            <Link to={`mailto:${landlord.email}?subject=Regarding ${listing.name}&body=${message}`} className='bg-orange-700 text-white text-center p-3 uppercase rounded-lg hover:bg-black '>    {/* Create a link to compose an email with the landlord's email address pre-filled as the recipient,the subject including the listing name, and the body including the message.,mailto is going to activate your mail system in the windows,send the email of the landlord, the subject of the emailand body with message*/}
             Send Message
             </Link>
+
+
         </div>
     )};
     </>

@@ -132,7 +132,7 @@ const handleListingDelete = async (listingId)  => {
         <input type="email" placeholder="email" id="email" defaultValue={currentUser.email} className="border p-3 rounded-lg" onChange={handleChange} />  {/* onChange: Event handler function called when the input value changes, invoking the handleChange function */}
         <input type="password" placeholder="password" id="password" className="border p-3 rounded-lg" onChange={handleChange} />{/*add onchange event listener */}
 
-        <button  disabled={loading} className="bg-orange-600 text-white rounded-lg p-3 uppercase hover:bg-black ">{loading ? 'loading...' : 'Update' }</button> {/* Button for updating user profile, if the loading is true,we want to see loading..., otherwise we want to see updates, and when it is loading... the loading button is disabled */}
+        <button  disabled={loading} className="bg-orange-600 text-white rounded-lg p-3 uppercase hover:bg-black transition duration-300 ">{loading ? 'loading...' : 'Update' }</button> {/* Button for updating user profile, if the loading is true,we want to see loading..., otherwise we want to see updates, and when it is loading... the loading button is disabled */}
         <Link  className= 'bg-black text-white p-3 rounded-lg uppercase text-center hover:opacity-80'to ={"/create-listing"}>           {/* Render a Link component for navigating to the Create Listing page. The 'to' prop specifies the destination route ("/create-listing").*/}
           Create Listing
         </Link>
