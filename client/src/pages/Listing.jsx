@@ -7,7 +7,7 @@ import { Navigation } from  'swiper/modules';      // Importing the Navigation m
 import 'swiper/css/bundle';                       // Importing Swiper CSS bundle
 import { FaBath, FaBed,  FaUtensils, FaTv, FaChair, FaMapMarkerAlt, FaParking, }  from "react-icons/fa";    // Importing FontAwesome icons 
 import Contact from '../components/Contact';
-import SimpleMarkerMap from  "../components/SimpleMarkerMap";
+
 
 // Define the Listing component
 export default function Listing() {
@@ -105,7 +105,7 @@ export default function Listing() {
           )}
           {contact && <Contact listing={listing}/> }     {/* Render the Contact component if the contact state is true,and passing the listing as a prop.*/}
       </div>
-      <SimpleMarkerMap/>
+      
       </div>
     }
     </main>

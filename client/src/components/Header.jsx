@@ -26,7 +26,7 @@ export default function Header() {
         if (searchTermFromUrl) {                                      //if there is a searchterm from url,                // If there is a search term from the URL, set the searchTerm state to that value
             setSearchTerm(searchTermFromUrl);                         //we want to set the search term to that one
         }
-    }, []);                                                           // Dependency array ensures the effect runs only once, on component initializes            
+    }, [location.search]);                                                           // Dependency array ensures the effect runs only once, on component initializes            
 
 
   return (
