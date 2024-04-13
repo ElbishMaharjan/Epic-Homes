@@ -301,7 +301,7 @@ const handleSubmit = async (e) =>{    // Define an asynchronous function to hand
                         </div>
                     ))
                 }
-                <button disabled={loading || uploading}  className='p-3 bg-orange-600 text-white rounded-lg uppercase hover:bg-black'>{loading ? 'Creating...' : 'Update listing'}</button>  {/* Button to create a listing with conditional rendering based on loading and uploading status */}
+                <button disabled={loading || uploading}  className='p-3 bg-orange-600 text-white rounded-lg uppercase hover:bg-black'>{loading ? 'Updating...' : 'Update listing'}</button>  {/* Button to create a listing with conditional rendering based on loading and uploading status */}
                 {error && <p className="text-red-700 text-sm">{error}</p>}        {/* Display error message if there's any */}
             </div>
             

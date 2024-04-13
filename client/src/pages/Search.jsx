@@ -1,5 +1,6 @@
 import  { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ListingItem from '../components/ListingItem';              // Import the ListingItem component
 
 export default function Search() {                                 // Declare a function component named Search that we can use elsewhere
     const navigate = useNavigate();                                //initlize navigate
@@ -94,15 +95,14 @@ export default function Search() {                                 // Declare a 
         const urlParams = new URLSearchParams();                        //geting the information already we have inside the URL, then get the URL params using method called URL search params which need to be called,// Create a new URLSearchParams object to store the query parameters
         urlParams.set('searchTerm', sidebardata.searchTerm);           //set the searchterm to the sidebardata.searchterm,/// Set each query parameter using the corresponding value from the sidebardata object
         urlParams.set('type', sidebardata.type);
-        urlParams.set('parking', sidebardata.parking);
-        urlParams.set('furnished', sidebardata.furnished);
-        urlParams.set('offer', sidebardata.offer);
+        urlParams.set('parking', sidebardata.parking.toString());         // Convert the boolean value of 'parking' to a string
+        urlParams.set('furnished', sidebardata.furnished.toString());
+        urlParams.set('offer', sidebardata.offer.toString());
         urlParams.set('sort', sidebardata.sort);
         urlParams.set('order', sidebardata.order);
         const searchQuery = urlParams.toString();                     // want to get the search query by converting to string,/// Convert the URLSearchParams object to a string representation of the query parameters
         navigate(`/search?${searchQuery}`);                        // navigate user to /search with searchQuery
     };
-
 
 
 
@@ -157,8 +157,24 @@ export default function Search() {                                 // Declare a 
             </form>
         </div>
 
-        <div className=''>
-            <h1 className='text-3xl font-semibold border-b p-6 text-orange-700 mt-5' >Listing results:</h1>
+        <div className='flex-1'>
+            <h1 className='text-3xl font-semibold border-b p-3 text-black mt-5' >Listing results:</h1>
+        
+        <div className='p-7 flex flex-wrap gap-4' > 
+                                                                                   {/*Conditional rendering based on loading state and listings length*/}
+            {!loading && listings.length === 0 && (                                //if there is no loading and listing display no listing found
+                <p className='text-xl text-orange-700'> No listing found!</p>
+            )}
+
+            {loading && (                                                                         //if there is loading display loading
+                <p className='text-xl text-orange-700 text-center w-full'>Loading...</p>
+            )}
+                                                                                                    {/*Conditional rendering based on loading state and presence of listings*/}
+                {!loading && listings && listings.map((listing) => (                               //if there is no loading and listing exists then map through the listing and get each listing
+                        <ListingItem key={listing._id} listing={listing} />                        // Map over the listings array and render a component for each item ,//{listing} to get this listing inside the ListingItem as the input
+                    ))}
+        </div>
+
         </div>
     </div>
   );

@@ -66,7 +66,7 @@ export default function Listing() {
           </p>
           {listing.offer && (                // Display only if there's an offer on the listing.
             <p className='bg-green-900 w-full max-w-[200px] text-white text-center p-1 rounded-md'>
-              ${+listing.regularPrice - +listing.discountPrice}      {/* Show the discounted price difference between regular and discounted prices in US dollars*/}
+              ${+listing.regularPrice - +listing.discountPrice}  Discount    {/* Show the discounted price difference between regular and discounted prices in US dollars*/}
             </p>
           )}
           </div>

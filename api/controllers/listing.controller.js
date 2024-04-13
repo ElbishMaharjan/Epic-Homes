@@ -68,7 +68,7 @@ try{
 
 export const getListings = async (req, res, next) => {                      //  creating getlisting Asynchronous function to handle fetching listings data
    try{
-      const limit = parseInt(req.query.limit) || 9;                             //Making pagination or making page limit, we wanna have a limit which is going to be parseInt (converts a string to an intege), if we have a request inside our API request we can add limit,and we can have a query,and if there is no query, we want to set it to be 9,in simple, if there is limit, use it,parse it and make a number.Otherwise, use 9 because we want to limit to 9// Set the limit of listings to display per request. Defaults to 9 if not specified.
+      const limit = parseInt(req.query.limit) || 10;                             //Making pagination or making page limit, we wanna have a limit which is going to be parseInt (converts a string to an intege), if we have a request inside our API request we can add limit,and we can have a query,and if there is no query, we want to set it to be 9,in simple, if there is limit, use it,parse it and make a number.Otherwise, use 9 because we want to limit to 9// Set the limit of listings to display per request. Defaults to 9 if not specified.
       const startIndex = parseInt(req.query.startIndex) || 0;                     // Determine the starting index for fetching listings. Defaults to 0 if not specified,if there is no start index set it to 0
       
       let offer = req.query.offer;                               // creating a variable offer
