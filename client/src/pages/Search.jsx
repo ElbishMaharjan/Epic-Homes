@@ -16,7 +16,7 @@ export default function Search() {                                 // Declare a 
 
     const [loading, setLoading] = useState(false);                     // Declare a state variable named loading and its setter function setLoading to keep track of whether data is currently being loaded,Initially, loading is set to false because no data is being loaded
     const [listings, setListings] = useState([]);                      // Declare a state variable named listings and its setter function setListings to store the fetched data, initialize listings as an empty array, which will hold the fetched data
-    console.log(listings);                                             // Output the current value of listings to the console for debugging purposes
+    const [showMore, setShowMore] = useState(false);                   // Initialize or create state for controlling whether to show more content or not
 
     useEffect(() => {                                                    // useEffect hook to perform side effects when the component fetch or location.search changes
         const urlParams = new URLSearchParams(location.search);          //first getting the information from url,searchtermurl is urlparams from above line and get the searchterm from there,Create a URLSearchParams object to extract query parameters from the current URL's
@@ -54,6 +54,12 @@ export default function Search() {                                 // Declare a 
             const searchQuery = urlParams.toString();                         // we want to get the updated URL, and get response based on the search query, the one after from usEffect(urlprams) then convert to string
             const res = await fetch(`/api/listing/get?${searchQuery}`);        // using getListing function, and add the searchQuery to the end of the url,    fetches data from an API endpoint using the query string
             const data = await res.json();                                     //after geting data back convert into json format so we can use it
+            if (data.length > 9 ){                                             // If the length of the data array is greater than 9, set showMore state to true
+                setShowMore(true);
+            }
+            else{
+                setShowMore(false);                                               // Otherwise,, set showMore state to false
+            }
             setListings(data);                                                 // Update the listings state with the fetched data
             setLoading(false);                                                // Set loading state to false after data fetching is complete                   
         };
@@ -104,7 +110,19 @@ export default function Search() {                                 // Declare a 
         navigate(`/search?${searchQuery}`);                        // navigate user to /search with searchQuery
     };
 
-
+    const onShowMoreClick = async () => {                            // Define an asynchronous function to handle the "Show more" button click event
+        const numberOfListings = listings.length;                     // we dont want to fetch the data from index zero, we want to fetch after the data we already we have which is 10 listings, first counting the length of listing which is 10, and it will start to fetch from 11 to 20,// Get the total number of listings
+        const startIndex = numberOfListings;                           // Set the start index for fetching more listings
+        const urlParams = new URLSearchParams(location.search);       //Based on the previous params we fetch data from url,/ Create a new URLSearchParams object by parsing the query parameters from the current URL's search portion
+        urlParams.set('startIndex', startIndex);                      //adding index to url, set the 'startIndex' query parameter to the startIndex value obtained from the listings from above
+        const searchQuery = urlParams.toString();                     // we want to create a search query,/ Convert the URLSearchParams object to a string format containing query parameters
+        const res = await fetch(`/api/listing/get?${searchQuery}`);   //fetch the data from and pass searchQuery,/ Fetch listings data from the server using the constructed search query
+        const data = await res.json();                                // convert data to json
+        if (data.length < 10 ){                                       //if the listing is less than 10 then dont want to show the show more button
+            setShowMore(false);
+        }
+        setListings([...listings, ...data]);                          //keeping the previous listings and adding the new listing,// Combine the existing listings with the newly fetched data and update the listings
+    };
 
   return (
     <div className='flex flex-col md:flex-row'>
@@ -173,6 +191,10 @@ export default function Search() {                                 // Declare a 
                 {!loading && listings && listings.map((listing) => (                               //if there is no loading and listing exists then map through the listing and get each listing
                         <ListingItem key={listing._id} listing={listing} />                        // Map over the listings array and render a component for each item ,//{listing} to get this listing inside the ListingItem as the input
                     ))}
+
+            {showMore && (      //   if the showMore state is true, // Render the "Show more" button
+                <button onClick={onShowMoreClick} className='text-orange-700 hover:underline p-7 text-center w-full'>Show more</button>
+            )}
         </div>
 
         </div>
