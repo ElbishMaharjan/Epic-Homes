@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';                                   // Import 
 
 export default function ListingItem({ listing }) {
   return (
-    <div className='bg-white shadow-md hover:shadow-lg transition-shadow overflow-hidden rounded-lg w-full sm:w-[280px]'>
+    <div className='bg-white shadow-md hover:shadow-lg transition-shadow overflow-hidden rounded-lg w-full sm:w-[270px]'>
         <Link to= {`/listing/${listing._id}`}>                                                                                 {/* Create a link to the listing detail page */}
             <img src={listing.imageUrls[0] } alt='listing-cover'                                                              // Display the first image of the listing                                                   
              className='h-[320px] sm:h-[220px] w-full object-cover hover:scale-105 transition-scale duration-300'/>
