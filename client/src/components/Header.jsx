@@ -34,8 +34,8 @@ export default function Header() {
         <div className='flex justify-between items-center max-w-6xl mx-auto p-4'>
             <Link to='/'>
                 <h1 className='font-bold text-sm:text-xl flex-wrap'>
-                    <span className='text-orange-600'>EpicHouse</span> 
-                    <span className='text-orange-600'>Estate</span>
+                    <span className='text-orange-600 text-2xl'>EpicHouse</span> 
+                    
                 </h1>
             </Link>
             <form  onSubmit={handleSubmit}  className='bg-slate-100 p-1 rounded-lg flex items-center'> {/*  Form for submitting search queries. - onSubmit: Calls the handleSubmit function when the form is submitted */}
