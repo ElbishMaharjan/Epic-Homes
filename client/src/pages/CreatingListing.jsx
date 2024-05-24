@@ -3,6 +3,7 @@ import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/
 import { app } from '../firebase';
 import { useSelector } from 'react-redux';      // For accessing Redux store state
 import { useNavigate } from 'react-router-dom';  // For navigation
+import Map from '../components/map';         // Import the Map component
 
 // This component is responsible for creating a new listing
 export default function CreatingListing() {
@@ -265,6 +266,8 @@ const handleSubmit = async (e) =>{    // Define an asynchronous function to hand
                 </div>
 
             </div>
+
+            
             <div className='flex flex-col flex-1 gap-4'> 
                 <p className='font-semibold'>Images:
                 <span className='font-normal text-gray-600 ml-2'> The first image will be the cover (max 6) </span>
@@ -285,9 +288,13 @@ const handleSubmit = async (e) =>{    // Define an asynchronous function to hand
                 }
                 <button disabled={loading || uploading}  className='p-3 bg-orange-600 text-white rounded-lg uppercase hover:bg-black'>{loading ? 'Creating...' : 'Create listing'}</button>  {/* Button to create a listing with conditional rendering based on loading and uploading status */}
                 {error && <p className="text-red-700 text-sm">{error}</p>}        {/* Display error message if there's any */}
-            </div>
-            
+            </div>  
         </form>
+
+            {/*Map */}
+        <div className='flex flex-col flex-1 gap-4'> 
+                    <Map address={formData.address} />  {/* Include the Map component and pass the address */}
+                </div>
     </main>
   )
 }

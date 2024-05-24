@@ -22,7 +22,7 @@ const fetchOfferListings = async() => {                                 // Funct
 };
 const fetchRentListings = async() => {                                   //Call this function after the offer data, Until the offer data is not loaded or response didn't come, it will not call this function, or it will not fetch data fo rent, so it will loaded better.// Fetch rent listings data from the API after offer data is loaded
   try{
-    const res = await fetch('/api/listing/get?type=sale&limit=4');       //fetch listing data and add query which is type should be rent and limit to 4 listing
+    const res = await fetch('/api/listing/get?type=rent&limit=4');       //fetch listing data and add query which is type should be rent and limit to 4 listing
     const data = await res.json();
     setrentListings(data);                                              // Update rent listings state with fetched data
     fetchSaleListings();                                                // Fetch sale listings after fetching rent listings
@@ -115,9 +115,8 @@ fetchOfferListings();                                   //Call the fetchOfferLis
           </div>
         )
         }
-        
-        {/*Footer */}
       </div>
+      {/*Footer */}
       <div className="bg-slate-200 text-black py-2 p-2">
       <div>
             <p className="flex justify-center text-center font-bold mt-2 gap-4">
@@ -134,6 +133,7 @@ fetchOfferListings();                                   //Call the fetchOfferLis
               <p className='text-sm px-6 mb-4'> <span className='font-bold'>Notice: </span> You acknowledge and accept that Epic-Homes is not associated with to any of the transactions involving the products or services that are mentioned on the website. It is only a platform for sharing information about properties among developers, brokers, and owners. Epic-Homes does not hold any responsibility for their act in any circumstances.It is only a web-based application designed to exchange information about properties.</p>
             </div>
         </div>
+        {/*Footer End */}
 
 </div>
    

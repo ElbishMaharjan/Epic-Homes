@@ -3,7 +3,7 @@ import { FaFacebook,FaInstagram, FaTwitter, FaYoutube  } from 'react-icons/fa';
 
 export default function About() {
   return (
-    <div className='py-16 px-12 max-w-8xl mx-auto bg-red-100 w-full'>
+    <div className='py-16 px-12 max-w-8xl mx-auto bg-red-100 w-full relative'>
       <h1 className='text-3xl font-bold mb-4 text-orange-600'>About Epic Homes</h1>
       <p className='mb-4 text-slate-700'>
       Leading real estate company Epic Homes specializes in guiding customers with the purchase, sale, and rental of homes in the most highly 
@@ -83,8 +83,8 @@ export default function About() {
       </div>
     </div>
 
-
-    <div className="bg-slate-200 text-black py-2 p-2 mt-auto">
+    {/*Footer */}
+    <div className="bg-slate-200 text-black py-2 p-2 absolute w-full left-0  overflow-hidden">
       <div>
             <p className="flex justify-center text-center font-bold mt-2 gap-4">
                 Copyright &copy; 2024 - Epic Homes | All Rights Reserved  |  <span className='gap-7'> </span>
